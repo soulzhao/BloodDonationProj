@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+</head>
+<body>
+<div class="popup_form_frame" style="display: none">
+    <h3>Please fill in below information</h3>
+    <form action="http://localhost:3000/donator/add_donation" method="POST" class="popup_form">
+        <div class="form-group">
+            <label htmlFor="first_name">First Name:</label>
+            <input class="person_info_blank form-control" type="text" name="first_name" />
+            <br />
+            <label htmlFor="last_name">Last Name:</label>
+            <input class="person_info_blank form-control" type="text" name="last_name" />
+            <br />
+            <label htmlFor="contact_number">TelPhone:</label>
+            <input class="person_info_blank form-control" type="text" name="contact_number"/>
+            <br />
+            <label htmlFor="email_addr">Email:</label>
+            <input class="person_info_blank form-control" type="text" name="email_addr"/>
+            <br />
+            <label htmlFor="blood_group">Blood Group:</label>
+            <select class="person_info_blank form-control" name="blood_group">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="AB">AB</option>
+                <option value="O">O</option>
+            </select>
+            <br />
+            <input class="person_info_blank form-control" type="hidden" name="donator_address" value="New York City"/>
+            <input class="person_info_blank form-control" type="hidden" name="geolocation" value="111.11,80.22"/>
+        </div>
+        <div class="operation_panel">
+            <input value="Submit" type="submit" class="btn btn-primary"/>
+            <input value="Close" type="button"  class="btn btn-default"/>
+        </div>
+    </form>
+</div>
+
+<div class="popup_form_frame">
+    <h3>Please fill in below information</h3>
+    <form action="http://localhost:3000/donator/update_donation/57cbf5a4617bd61818c24b55" method="POST" class="popup_form">
+        <div class="form-group">
+            <label htmlFor="first_name">First Name:</label>
+            <input class="person_info_blank form-control" type="text" name="first_name" />
+            <br />
+            <label htmlFor="last_name">Last Name:</label>
+            <input class="person_info_blank form-control" type="text" name="last_name" />
+            <br />
+            <label htmlFor="contact_number">TelPhone:</label>
+            <input class="person_info_blank form-control" type="text" name="contact_number"/>
+            <br />
+            <label htmlFor="email_addr">Email:</label>
+            <input class="person_info_blank form-control" type="text" name="email_addr"/>
+            <br />
+            <label htmlFor="blood_group">Blood Group:</label>
+            <select class="person_info_blank form-control" name="blood_group">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="AB">AB</option>
+                <option value="O">O</option>
+            </select>
+        </div>
+        <div class="operation_panel">
+            <input value="Submit" type="submit" class="btn btn-primary"/>
+            <input value="Close" type="button"  class="btn btn-default"/>
+        </div>
+    </form>
+</div>
+</body>
+</html>

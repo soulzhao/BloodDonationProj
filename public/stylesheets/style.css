@@ -1,0 +1,116 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body{
+    font-family: "Avenir Next W01","Avenir Next W00","Avenir Next","Avenir","Helvetica Neue","Helvetica","Arial",sans-serif;
+    height: 100%;
+    width: 100%;
+}
+
+/**********************
+*
+*   Nav style settings
+*
+***********************/
+
+.nav_brand_span{
+    font-size: 16px;
+    color: red;
+}
+
+/**********************
+*
+*   Map DIV style settings
+*
+***********************/
+.container-fluid, .row-fluid {
+    height: inherit;
+}
+
+#instruction {
+    z-index: 99;
+    position: absolute;
+    top: 66px;
+    left: 50%;
+    padding: 5px;
+    margin-left: -175px;
+    height: 30px;
+    width: 350px;
+    background: rgba(25, 25, 25, 0.8);
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+}
+
+#viewDiv {
+    padding: 0;
+    margin: 0;
+    height: 500px;
+    width: 100%;
+}
+
+/**********************
+*
+*   Popup form style settings
+*
+***********************/
+.popup_form_frame{
+    width: 400px;
+    background-color: white;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #adadad;
+    border-radius: 6px;
+}
+
+.popup_form{
+    padding: 10px 20px;
+}
+
+.popup_form label{
+    width: 120px;
+}
+
+.popup_form .person_info_blank{
+    display: inline-block;
+    width: 200px;
+    height: 28px;
+}
+
+.popup_form .operation_panel{
+    margin-left: 40px;
+}
+.popup_form .operation_panel input{
+    margin: 2px 10px;
+}
+
+/**********************
+*
+*   Man's donation list
+*
+***********************/
+.operation-td i{
+    height: 16px;
+    width:16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.oper-setting{
+    color: #f7e1b5;
+}
+
+.oper-setting:hover{
+    color: #d58512;
+}
+
+.oper-delete{
+    color: red;
+}
+
+.oper-delete:hover{
+    color: darkred;
+}

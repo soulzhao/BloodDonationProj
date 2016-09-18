@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="description" content="Calcite Maps Demo - ArcGIS">
+  <link rel="icon" href="http://www.esri.com/favicon.ico">
+  <title>Blood Donation</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+
+  <!-- Calcite Bootstrap -->
+  <link rel="stylesheet" href="../arcgis/css/calcite-bootstrap.min-v0.2.css">
+
+  <!-- Calcite Maps -->
+  <link rel="stylesheet" href="../arcgis/css/calcite-maps-arcgis-4.x.min-v0.2.css">
+
+  <!-- ArcGIS JS 4.0 -->
+  <link rel="stylesheet" href="http://js.arcgis.com/4.0/esri/css/main.css">
+  <link rel="stylesheet" href="../stylesheets/style.css">
+</head>
+
+<body class="calcite-maps calcite-nav-top">
+
+<!-- Navbar -->
+
+<nav class="navbar calcite-navbar navbar-fixed-top calcite-text-light calcite-bg-dark calcite-bgcolor-dark-blue">
+  <!-- Menu -->
+  <div class="dropdown calcite-dropdown calcite-bg-light calcite-text-dark" role="presentation">
+    <a class="dropdown-toggle" role="button" aria-haspopup="true" aria-expanded="false">
+      <div class="calcite-dropdown-toggle">
+        <span class="sr-only">Toggle dropdown menu</span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </a>
+    <ul class="dropdown-menu calcite-menu-drawer">
+      <li><a class="hidden-md hidden-lg" href="#donatorTab" aria-controls="2Dtab" role="tab" data-toggle="tab"> Donator</a></li>
+      <li><a class="active hidden-md hidden-lg" href="#patientTab" aria-controls="3Dtab" role="tab" data-toggle="tab"> Patient</a></li>
+      <li><a id="show_panel_info" role="button" data-target="#panelInfo" aria-haspopup="true"><span class="glyphicon glyphicon-info-sign"></span> Donation Records</a></li>
+      <li><a role="button" id="calciteToggleNavbar" aria-haspopup="true"><span class="glyphicon glyphicon-fullscreen"></span> Full Map</a></li>
+    </ul>
+  </div>
+  <!-- Title -->
+  <div class="calcite-title calcite-overflow-hidden">
+    <span class="calcite-title-main">Blood Donation</span>
+    <span class="calcite-title-divider hidden-xs"></span>
+    <span class="calcite-title-sub hidden-xs">Blood Connect Us!</span>
+  </div>
+  <!-- Nav -->
+  <ul class="calcite-nav nav navbar-nav">
+    <li class="active"><a id="donatorMapNav" class="hidden-xs hidden-sm" href="#donatorTab" aria-controls="2Dtab" aria-expanded="true" role="tab" data-toggle="tab" data-tooltip="tip" title="Donator View" data-placement="bottom">Donator</a></li>
+    <li><a id="patientMapNav" class="hidden-xs hidden-sm" href="#patientTab" aria-controls="3Dtab" role="tab" data-toggle="tab" data-tooltip="tip" title="Patient View" data-placement="bottom">Patient</a></li>
+    <li><div class="calcite-navbar-search calcite-search-expander"><div id="searchNavDiv"></div></div></li>
+  </ul>
+</nav><!--/.navbar -->
+
+<!-- Map Container  -->
+
+<div class="calcite-map calcite-map-absolute">
+  <div id="tabContainer" class="tab-content">
+    <div id="donatorTab" class="tab-pane fade in active" role="tabpanel">
+      <div id="donatorViewDiv"></div>
+    </div>
+    <div id="patientTab" class="tab-pane fade" role="tabpanel">
+      <div id="patientViewDiv"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Panel Container -->
+
+<div class="calcite-panels calcite-panels-right calcite-bg-custom calcite-text-light calcite-bgcolor-dark-blue panel-group" role="tablist" aria-multiselectable="true">
+
+  <!-- Info Panel -->
+
+  <div id="panelInfo" class="panel collapse">
+    <div id="headingInfo" class="panel-heading" role="tab">
+      <div class="panel-title">
+        <a class="panel-toggle" role="button" data-toggle="collapse" href="#collapseInfo"  aria-expanded="true" aria-controls="collapseInfo"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span><span class="panel-label">Donation Records</span></a>
+        <a class="panel-close" role="button" data-toggle="collapse" data-target="#panelInfo"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+      </div>
+    </div>
+    <div id="collapseInfo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingInfo">
+      <div class="panel-body">
+        <div id="donation_list_div" class="donation_table">
+          <table class="table  task-list-table">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Location</th>
+              <th>Operation</th>
+            </tr>
+            </thead>
+            <tbody id="donation_list_tbody"></tbody>
+          </table>
+
+        </div>
+        <div id="detail_update_div" style="display:none">
+          <form id="donation_update_form" class="popup_form">
+            <div class="form-group">
+              <label htmlFor="first_name">First Name:</label>
+              <input class="person_info_blank form-control" type="text" name="first_name" id="updform_first_name" />
+              <br />
+              <label htmlFor="last_name">Last Name:</label>
+              <input class="person_info_blank form-control" type="text" name="last_name" id="updform_last_name"/>
+              <br />
+              <label htmlFor="contact_number">TelPhone:</label>
+              <input class="person_info_blank form-control" type="text" name="contact_number" id="updform_contact_number"/>
+              <br />
+              <label htmlFor="email_addr">Email:</label>
+              <input class="person_info_blank form-control" type="text" name="email_addr" id="updform_email_addr"/>
+              <br />
+              <label htmlFor="email_addr">Blood Group:</label>
+              <select class="person_info_blank form-control" name="blood_group"  id="updform_blood_group">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="AB">AB</option>
+                <option value="O">O</option>
+              </select>
+              <input type="hidden" name="updform_hidden" id="updform_hidden_id"/>
+            </div>
+              <div id="success_result_div" className="alert alert-success" style="display: none">
+                  Updated successfully!
+              </div>
+              <div id="fail_result_div" className="alert alert-danger" style="display: none">
+                  update fail!
+              </div>
+            <div class="operation_panel">
+              <input value="Submit" type="button" onClick="app.donatorView.onUpdate(this)" class="btn btn-primary"/>
+              <input value="Back" type="button" onClick="app.donatorView.onBack()" class="btn btn-primary"/>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Basemaps Panel -->
+
+  <div id="panelBasemaps" class="panel collapse">
+    <div id="headingBasemaps" class="panel-heading" role="tab">
+      <div class="panel-title">
+        <a class="panel-toggle collapsed" role="button" data-toggle="collapse" href="#collapseBasemaps" aria-expanded="false"   aria-controls="collapseBasemaps"><span class="glyphicon glyphicon-th-large" aria-hidden="true"></span><span class="panel-label">Basemaps</span></a>
+        <a class="panel-close" role="button" data-toggle="collapse" data-target="#panelBasemaps"><span class="esri-icon esri-icon-close" aria-hidden="true"></span></a>
+      </div>
+    </div>
+    <div id="collapseBasemaps" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingBasemaps">
+      <div class="panel-body">
+        <select id="selectBasemapPanel" class="form-control">
+          <option value="streets" data-vector="streets-vector">Streets</option>
+          <option value="satellite" data-vector="satellite" selected="">Satellite</option>
+          <option value="hybrid" data-vector="hybrid">Hybrid</option>
+          <option value="national-geographic" data-vector="national-geographic">National Geographic</option>
+          <option value="topo" data-vector="topo-vector">Topographic</option>
+          <option value="gray" data-vector="gray-vector">Gray</option>
+          <option value="dark-gray" data-vector="dark-gray-vector">Dark Gray</option>
+          <option value="osm" data-vector="osm">Open Street Map</option>
+          <option value="dark-gray" data-vector="streets-night-vector">Streets Night</option>
+          <option value="streets" data-vector="streets-navigation-vector">Streets Mobile</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div> <!-- /.calcite-panels -->
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script type="text/javascript">
+  var dojoConfig = {
+    packages: [
+      {
+      name: "bootstrap",
+      location: location.pathname.replace(/\/[^/]+$/, "") + "../arcgis/vendor/dojo-bootstrap"
+      },
+      {
+        name: "calcite-maps",
+        location: location.pathname.replace(/\/[^/]+$/, "") + "../arcgis/js/dojo"
+      },{
+        name: "react",
+        location: "https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/",
+        main: "react.min"
+      }, {
+        name: "react-dom",
+        location: "https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/",
+        main: "react-dom.min"
+      },{
+        name: "root-view",
+        location: location.pathname.replace(/\/[^/]+$/, "") + "../javascripts",
+        main: "app"
+      },{
+        name: "donator-view",
+        location: location.pathname.replace(/\/[^/]+$/, "") + "../javascripts",
+        main: "donatorView"
+      },{
+        name: "patient-view",
+        location: location.pathname.replace(/\/[^/]+$/, "") + "../javascripts",
+        main: "patientView"
+      },{
+        name: "react-dialog",
+        location: location.pathname.replace(/\/[^/]+$/, "") + "../javascripts",
+        main: "reactDialog"
+      }
+    ]
+  };
+</script>
+
+<!-- ArcGIS JS 4.0 -->
+<script src="https://js.arcgis.com/4.0/"></script>
+
+<script>
+  // Make app global
+  var app;
+
+  require([
+    // Controllers
+    "donator-view",
+    "patient-view",
+    "root-view",
+
+    // Bootstrap
+    "bootstrap/Collapse",
+    "bootstrap/Dropdown",
+    "bootstrap/Tab",
+
+    // Calcite-maps
+    "calcite-maps/calcitemaps-v0.2",
+    "dojo/domReady!"
+  ], function(
+      DonatorView,
+      PatientView,
+      RootView
+  ) {
+
+    String.prototype.format = function(params){
+      if(typeof params == "array")
+      {
+        var reg = /{(\d+)}/gm;
+        return this.replace(reg,function(match,name){
+          return params[~~name];
+        });
+      }else if(typeof params == "object"){
+        var reg = /{([^{}]+)}/gm;
+        return this.replace(reg,function(match,name){
+          return params[name];
+        });
+      }
+    };
+
+    app = RootView;
+    app.donatorView = DonatorView;
+    app.donatorView.init();
+    app.patientView = PatientView;
+    app.patientView.init();
+    app.activeView = app.donatorView;
+    app.init();
+  });
+
+</script>
+</body>
+</html>
